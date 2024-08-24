@@ -2,7 +2,6 @@ package com.emazon.stock.emazon.adapters.driven.jpa.mysql.entity;
 
 import jakarta.persistence.*;
 import lombok.RequiredArgsConstructor;
-import lombok.Getter;
 import lombok.Setter;
 
 @Entity
