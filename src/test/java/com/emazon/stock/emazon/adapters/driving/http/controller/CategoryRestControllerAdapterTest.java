@@ -4,9 +4,11 @@ import com.emazon.stock.emazon.adapters.driving.http.dto.request.AddCategoryRequ
 import com.emazon.stock.emazon.adapters.driving.http.mapper.ICategoryRequestMapper;
 import com.emazon.stock.emazon.domain.api.ICategoryServicePort;
 import com.emazon.stock.emazon.domain.model.Category;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
@@ -17,13 +19,18 @@ import static org.mockito.Mockito.*;
 class CategoryRestControllerAdapterTest {
 
     @Mock
-    private ICategoryServicePort iCategoryServicePort;
+    private ICategoryServicePort categoryServicePort;
 
     @Mock
-    private ICategoryRequestMapper iCategoryRequestMapper;
+    private ICategoryRequestMapper categoryRequestMapper;
 
     @InjectMocks
     private CategoryRestControllerAdapter categoryRestControllerAdapter;
+
+    @BeforeEach
+    void setUp() {
+        MockitoAnnotations.openMocks(this);
+    }
 
     @Test
     void testAddCategory() {
@@ -31,14 +38,14 @@ class CategoryRestControllerAdapterTest {
         AddCategoryRequest addCategoryRequest = new AddCategoryRequest("Category Name", "Category Description");
         Category category = new Category(1L, "Category Name", "Category Description");
 
-        when(iCategoryRequestMapper.addRequestToCategory(addCategoryRequest)).thenReturn(category);
+        when(categoryRequestMapper.addRequestToCategory(addCategoryRequest)).thenReturn(category);
 
         // Act
         ResponseEntity<Category> response = categoryRestControllerAdapter.addCategory(addCategoryRequest);
 
         // Assert
-        verify(iCategoryServicePort, times(1)).saveCategory(any(Category.class));
-        verify(iCategoryRequestMapper, times(1)).addRequestToCategory(any(AddCategoryRequest.class));
+        verify(categoryServicePort, times(1)).saveCategory(any(Category.class));
+        verify(categoryRequestMapper, times(1)).addRequestToCategory(any(AddCategoryRequest.class));
 
         assertEquals(HttpStatus.CREATED, response.getStatusCode());
     }

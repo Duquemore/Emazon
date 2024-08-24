@@ -1,45 +1,18 @@
 package com.emazon.stock.emazon.adapters.driven.jpa.mysql.entity;
 
 import jakarta.persistence.*;
+import lombok.RequiredArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
 @Table(name = "category")
+@RequiredArgsConstructor
+@Setter
 public class CategoryEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    private String name;
-    private String description;
-
-    public CategoryEntity(Long id, String name, String description) {
-        this.id = id;
-        this.name = name;
-        this.description = description;
-    }
-
-    public CategoryEntity(){}
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
+    private final Long id;
+    private final String name;
+    private final String description;
 }

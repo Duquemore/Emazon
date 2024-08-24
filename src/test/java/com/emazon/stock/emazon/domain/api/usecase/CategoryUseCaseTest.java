@@ -1,5 +1,6 @@
 package com.emazon.stock.emazon.domain.api.usecase;
 
+import com.emazon.stock.emazon.adapters.driven.jpa.mysql.exception.CategoryAlreadyExistsException;
 import com.emazon.stock.emazon.domain.model.Category;
 import com.emazon.stock.emazon.domain.spi.ICategoryPersistencePort;
 import org.junit.jupiter.api.BeforeEach;
@@ -8,11 +9,15 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import static org.mockito.Mockito.verify;
+import java.util.Optional;
+
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.*;
 
 class CategoryUseCaseTest {
+
     @Mock
-    private ICategoryPersistencePort iCategoryPersistencePort;
+    private ICategoryPersistencePort categoryPersistencePort;
 
     @InjectMocks
     private CategoryUseCase categoryUseCase;
@@ -23,14 +28,30 @@ class CategoryUseCaseTest {
     }
 
     @Test
-    void saveCategoryShouldInvokeSaveCategoryOnPersistencePort() {
+    void saveCategory_whenCategoryDoesNotExist_shouldSaveCategory() {
         // Arrange
-        Category category = new Category(1L, "Electronics", "Electronic things");
+        Category category = new Category(1L, "Category Name", "Category Description");
+
+        when(categoryPersistencePort.findByName(category.getName())).thenReturn(Optional.empty());
 
         // Act
         categoryUseCase.saveCategory(category);
 
         // Assert
-        verify(iCategoryPersistencePort).saveCategory(category);
+        verify(categoryPersistencePort, times(1)).saveCategory(category);
+    }
+
+    @Test
+    void saveCategory_whenCategoryAlreadyExists_shouldThrowException() {
+        // Arrange
+        Category category = new Category(1L, "Category Name", "Category Description");
+
+        when(categoryPersistencePort.findByName(category.getName())).thenReturn(Optional.of(category));
+
+        // Act & Assert
+        assertThrows(CategoryAlreadyExistsException.class, () -> categoryUseCase.saveCategory(category));
+
+        // Verificar que no se intenta guardar la categoría si ya existe
+        verify(categoryPersistencePort, never()).saveCategory(any(Category.class));
     }
 }

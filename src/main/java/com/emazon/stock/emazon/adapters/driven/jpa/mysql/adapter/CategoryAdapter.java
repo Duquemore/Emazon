@@ -5,21 +5,25 @@ import com.emazon.stock.emazon.adapters.driven.jpa.mysql.mapper.ICategoryEntityM
 import com.emazon.stock.emazon.adapters.driven.jpa.mysql.repository.ICategoryRepository;
 import com.emazon.stock.emazon.domain.model.Category;
 import com.emazon.stock.emazon.domain.spi.ICategoryPersistencePort;
+import lombok.RequiredArgsConstructor;
 
+import java.util.Optional;
+
+@RequiredArgsConstructor
 public class CategoryAdapter implements ICategoryPersistencePort {
     private final ICategoryRepository categoryRepository;
     private final ICategoryEntityMapper categoryEntityMapper;
 
-    public CategoryAdapter(ICategoryRepository categoryRepository, ICategoryEntityMapper categoryEntityMapper) {
-        this.categoryRepository = categoryRepository;
-        this.categoryEntityMapper = categoryEntityMapper;
-    }
-
     @Override
     public void saveCategory(Category category) {
-        if(categoryRepository.findByName(category.getName()).isPresent()) {
+        if (categoryRepository.findByName(category.getName()).isPresent()) {
             throw new CategoryAlreadyExistsException();
         }
         categoryRepository.save(categoryEntityMapper.toEntity(category));
+    }
+
+    @Override
+    public Optional<Category> findByName(String name) {
+        return categoryRepository.findByName(name).map(categoryEntityMapper::toDomain);
     }
 }
