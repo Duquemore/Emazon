@@ -8,18 +8,15 @@ import com.emazon.stock.emazon.domain.api.usecase.CategoryUseCase;
 import com.emazon.stock.emazon.domain.spi.ICategoryPersistencePort;
 import io.swagger.v3.oas.models.info.Info;
 import io.swagger.v3.oas.models.OpenAPI;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
+@RequiredArgsConstructor
 public class BeanConfiguration {
     private final ICategoryRepository categoryRepository;
     private final ICategoryEntityMapper categoryEntityMapper;
-
-    public BeanConfiguration(ICategoryRepository categoryRepository, ICategoryEntityMapper categoryEntityMapper) {
-        this.categoryRepository = categoryRepository;
-        this.categoryEntityMapper = categoryEntityMapper;
-    }
 
     @Bean
     public OpenAPI customOpenAPI() {
