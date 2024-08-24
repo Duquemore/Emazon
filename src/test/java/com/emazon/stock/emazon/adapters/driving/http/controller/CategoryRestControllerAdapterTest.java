@@ -29,7 +29,7 @@ class CategoryRestControllerAdapterTest {
 
     @BeforeEach
     void setUp() {
-        MockitoAnnotations.openMocks(this);
+        MockitoAnnotations.openMocks(this); // Inicializa los mocks
     }
 
     @Test
