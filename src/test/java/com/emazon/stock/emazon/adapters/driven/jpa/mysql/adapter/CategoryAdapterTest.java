@@ -1,7 +1,6 @@
 package com.emazon.stock.emazon.adapters.driven.jpa.mysql.adapter;
 
 import com.emazon.stock.emazon.adapters.driven.jpa.mysql.entity.CategoryEntity;
-import com.emazon.stock.emazon.adapters.driven.jpa.mysql.exception.CategoryAlreadyExistsException;
 import com.emazon.stock.emazon.adapters.driven.jpa.mysql.mapper.ICategoryEntityMapper;
 import com.emazon.stock.emazon.adapters.driven.jpa.mysql.repository.ICategoryRepository;
 import com.emazon.stock.emazon.domain.model.Category;
@@ -13,15 +12,11 @@ import org.mockito.MockitoAnnotations;
 
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 class CategoryAdapterTest {
-
-    private static final Long CATEGORY_ID = 1L;
-    private static final String CATEGORY_NAME = "Category Name";
-    private static final String CATEGORY_DESCRIPTION = "Category Description";
 
     @Mock
     private ICategoryRepository categoryRepository;
@@ -38,32 +33,37 @@ class CategoryAdapterTest {
     }
 
     @Test
-    void testSaveCategoryWhenCategoryDoesNotExist() {
+    void testSaveCategory() {
         // Arrange
-        Category category = new Category(CATEGORY_ID, CATEGORY_NAME, CATEGORY_DESCRIPTION);
+        Category category = new Category(1L, "Category Name", "Category Description");
+        com.emazon.stock.emazon.adapters.driven.jpa.mysql.entity.CategoryEntity categoryEntity = new CategoryEntity(1L, "Category Name", "Category Description");
 
-        when(categoryRepository.findByName(category.getName())).thenReturn(Optional.empty());
-        when(categoryEntityMapper.toEntity(category)).thenReturn(any());
+        // Mocking the conversion from domain to entity
+        when(categoryEntityMapper.toEntity(category)).thenReturn(categoryEntity);
 
         // Act
         categoryAdapter.saveCategory(category);
 
         // Assert
-        verify(categoryRepository, times(1)).save(any());
+        verify(categoryRepository, times(1)).save(categoryEntity);
     }
 
     @Test
-    void testSaveCategoryWhenCategoryAlreadyExists() {
+    void testFindByName() {
         // Arrange
-        Category category = new Category(CATEGORY_ID, CATEGORY_NAME, CATEGORY_DESCRIPTION);
-        CategoryEntity categoryEntity = new CategoryEntity(CATEGORY_ID, CATEGORY_NAME, CATEGORY_DESCRIPTION);
+        String categoryName = "Category Name";
+        Category category = new Category(1L, categoryName, "Category Description");
+        com.emazon.stock.emazon.adapters.driven.jpa.mysql.entity.CategoryEntity categoryEntity = new CategoryEntity(1L, "Category Name", "Category Description");
 
-        when(categoryRepository.findByName(category.getName())).thenReturn(Optional.of(categoryEntity));
+        // Mocking the repository and mapper methods
+        when(categoryRepository.findByName(categoryName)).thenReturn(Optional.of(categoryEntity));
+        when(categoryEntityMapper.toDomain(categoryEntity)).thenReturn(category);
 
-        // Act & Assert
-        assertThrows(CategoryAlreadyExistsException.class, () -> categoryAdapter.saveCategory(category));
+        // Act
+        Optional<Category> result = categoryAdapter.findByName(categoryName);
 
-        // Verificar que no se intente guardar la categoría si ya existe
-        verify(categoryRepository, never()).save(any());
+        // Assert
+        assertEquals(Optional.of(category), result);
+        verify(categoryRepository, times(1)).findByName(categoryName);
     }
 }

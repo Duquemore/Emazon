@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.emazon.stock.emazon.adapters.driving.http.controller.CategoryRestControllerAdapterTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2024-08-24T21:34:52" hostname="DESKTOP-PNL2D40" time="0.072">
+  <properties/>
+  <testcase name="testAddCategory()" classname="com.emazon.stock.emazon.adapters.driving.http.controller.CategoryRestControllerAdapterTest" time="0.072"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

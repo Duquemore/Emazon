@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.emazon.stock.emazon.adapters.driven.jpa.mysql.adapter.CategoryAdapterTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2024-08-24T21:34:52" hostname="DESKTOP-PNL2D40" time="0.245">
+  <properties/>
+  <testcase name="testFindByName()" classname="com.emazon.stock.emazon.adapters.driven.jpa.mysql.adapter.CategoryAdapterTest" time="0.242"/>
+  <testcase name="testSaveCategory()" classname="com.emazon.stock.emazon.adapters.driven.jpa.mysql.adapter.CategoryAdapterTest" time="0.002"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
