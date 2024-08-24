@@ -59,7 +59,7 @@ class CategoryAdapterTest {
         when(categoryRepository.findByName(categoryName)).thenReturn(Optional.of(categoryEntity));
         when(categoryEntityMapper.toDomain(categoryEntity)).thenReturn(category);
 
-        // Act
+        /// Act
         Optional<Category> result = categoryAdapter.findByName(categoryName);
 
         // Assert
