@@ -1,0 +1,20 @@
+Index: src/main/java/com/emazon/stock/emazon/adapters/driven/jpa/mysql/adapter/CategoryAdapter.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.emazon.stock.emazon.adapters.driven.jpa.mysql.adapter;\r\n\r\nimport com.emazon.stock.emazon.adapters.driven.jpa.mysql.exception.CategoryAlreadyExistsException;\r\nimport com.emazon.stock.emazon.adapters.driven.jpa.mysql.mapper.ICategoryEntityMapper;\r\nimport com.emazon.stock.emazon.adapters.driven.jpa.mysql.repository.ICategoryRepository;\r\nimport com.emazon.stock.emazon.domain.model.Category;\r\nimport com.emazon.stock.emazon.domain.spi.ICategoryPersistencePort;\r\nimport lombok.RequiredArgsConstructor;\r\n\r\nimport java.util.Optional;\r\n\r\n@RequiredArgsConstructor\r\npublic class CategoryAdapter implements ICategoryPersistencePort {\r\n    private final ICategoryRepository categoryRepository;\r\n    private final ICategoryEntityMapper categoryEntityMapper;\r\n\r\n    @Override\r\n    public void saveCategory(Category category) {\r\n        if (categoryRepository.findByName(category.getName()).isPresent()) {\r\n            throw new CategoryAlreadyExistsException();\r\n        }\r\n        categoryRepository.save(categoryEntityMapper.toEntity(category));\r\n    }\r\n\r\n    @Override\r\n    public Optional<Category> findByName(String name) {\r\n        return categoryRepository.findByName(name).map(categoryEntityMapper::toDomain);\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/com/emazon/stock/emazon/adapters/driven/jpa/mysql/adapter/CategoryAdapter.java b/src/main/java/com/emazon/stock/emazon/adapters/driven/jpa/mysql/adapter/CategoryAdapter.java
+--- a/src/main/java/com/emazon/stock/emazon/adapters/driven/jpa/mysql/adapter/CategoryAdapter.java	(revision 589c95b04f0c9344ae9ee57ad0a6179e09a34135)
++++ b/src/main/java/com/emazon/stock/emazon/adapters/driven/jpa/mysql/adapter/CategoryAdapter.java	(date 1724531604106)
+@@ -16,9 +16,6 @@
+ 
+     @Override
+     public void saveCategory(Category category) {
+-        if (categoryRepository.findByName(category.getName()).isPresent()) {
+-            throw new CategoryAlreadyExistsException();
+-        }
+         categoryRepository.save(categoryEntityMapper.toEntity(category));
+     }
+ 
