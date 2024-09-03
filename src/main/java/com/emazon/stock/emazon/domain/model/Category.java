@@ -1,11 +1,5 @@
 package com.emazon.stock.emazon.domain.model;
 
-import com.emazon.stock.emazon.domain.exception.LengthExceededInFieldException;
-import com.emazon.stock.emazon.domain.util.DomainConstants;
-import com.emazon.stock.emazon.domain.exception.EmptyFieldException;
-
-import static java.util.Objects.requireNonNull;
-
 public class Category {
     private final Long id;
     private final String name;
