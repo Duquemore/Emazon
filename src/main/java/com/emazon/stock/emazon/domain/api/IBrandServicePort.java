@@ -10,6 +10,5 @@ public interface IBrandServicePort {
     void saveBrand(Brand brand);
     Optional<Brand> findBrandByName(String name);
     Pagination<Brand> getAllBrands(PaginationUtil paginationUtil);
-
 }
 

@@ -10,6 +10,5 @@ import java.util.List;
 public interface IBrandEntityMapper {
     Brand toModel(BrandEntity brandEntity);
     BrandEntity toEntity(Brand brand);
-    List<Brand> toModelList(List<BrandEntity> BrandEntities);
-
+    List<Brand> toModelList(List<BrandEntity> brandEntities);
 }
