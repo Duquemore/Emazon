@@ -21,7 +21,6 @@ public class Constants {
     public static final int BRAND_NAME_MAX_LENGTH = 50;
     public static final int BRAND_DESCRIPTION_MAX_LENGTH = 120;
     public static final String BRAND_ALREADY_EXISTS_EXCEPTION_MESSAGE = "La marca que quieres crear ya existe";
-
+    public static final String SORT_BRANDS_BY_COLUMN = "name";
     public static final String DESCRIPTION_GREATER_THAN_120_CHARACTERS_EXCEPTION_MESSAGE = "El campo descripcion no puede ser mayor a 120 caracteres";
-
 }

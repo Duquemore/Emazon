@@ -36,7 +36,7 @@ public class BeanConfiguration {
     }
 
     @Bean
-    public ICategoryPersistencePort categoryPersistencePort(){
+    public ICategoryPersistencePort categoryPersistencePort() {
         return new CategoryAdapter(categoryRepository, categoryEntityMapper);
     }
 
@@ -46,7 +46,7 @@ public class BeanConfiguration {
     }
 
     @Bean
-    public IBrandPersistencePort brandPersistencePort(){
+    public IBrandPersistencePort brandPersistencePort() {
         return new BrandAdapter(brandRepository, brandEntityMapper);
     }
 

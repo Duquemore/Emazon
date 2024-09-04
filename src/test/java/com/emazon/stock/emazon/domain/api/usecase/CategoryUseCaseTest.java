@@ -17,7 +17,6 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.*;
 
 class CategoryUseCaseTest {
@@ -81,7 +80,7 @@ class CategoryUseCaseTest {
     }
 
     @Test
-    @DisplayName("Debe lanzar un NoDataFoundException cuando las categorias estan vacias")
+    @DisplayName("Debe lanzar un NoDataFoundException cuando la base de datos de categorias esta vacia")
     void getAllCategoriesShouldThrowNoDataFoundExceptionWhenEmpty() {
         // Arrange
         PaginationUtil paginationUtil = new PaginationUtil(0, 10, "asc");

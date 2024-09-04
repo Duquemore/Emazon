@@ -11,5 +11,4 @@ public interface ICategoryEntityMapper {
     Category toModel(CategoryEntity categoryEntity);
     CategoryEntity toEntity(Category category);
     List<Category> toModelList(List<CategoryEntity> categoryEntities);
-
 }

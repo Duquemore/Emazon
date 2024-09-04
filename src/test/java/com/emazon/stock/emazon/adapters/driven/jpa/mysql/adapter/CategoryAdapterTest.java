@@ -1,7 +1,6 @@
 package com.emazon.stock.emazon.adapters.driven.jpa.mysql.adapter;
 
 import com.emazon.stock.emazon.adapters.driven.jpa.mysql.entity.CategoryEntity;
-import com.emazon.stock.emazon.domain.exception.NoDataFoundException;
 import com.emazon.stock.emazon.adapters.driven.jpa.mysql.mapper.ICategoryEntityMapper;
 import com.emazon.stock.emazon.adapters.driven.jpa.mysql.repository.ICategoryRepository;
 import com.emazon.stock.emazon.domain.model.Category;
@@ -16,13 +15,11 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.data.domain.*;
 
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
 class CategoryAdapterTest {
