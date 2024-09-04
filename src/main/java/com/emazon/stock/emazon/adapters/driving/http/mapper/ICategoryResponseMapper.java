@@ -4,7 +4,10 @@ import com.emazon.stock.emazon.adapters.driving.http.dto.response.CategoryRespon
 import com.emazon.stock.emazon.domain.model.Category;
 import org.mapstruct.Mapper;
 
+import java.util.List;
+
 @Mapper(componentModel = "spring")
 public interface ICategoryResponseMapper {
     CategoryResponse toCategoryResponse(Category category);
+    List<CategoryResponse> toCategoryResponseList(List<Category> categories);
 }

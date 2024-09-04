@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.emazon.stock.emazon.domain.api.usecase.BrandUseCaseTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2024-09-03T21:33:54" hostname="DESKTOP-PNL2D40" time="0.788">
+  <properties/>
+  <testcase name="Dado un nombre de marca debe buscarlo en la base de datos" classname="com.emazon.stock.emazon.domain.api.usecase.BrandUseCaseTest" time="0.777"/>
+  <testcase name="Dada una marca debe guardarla en la base de datos" classname="com.emazon.stock.emazon.domain.api.usecase.BrandUseCaseTest" time="0.01"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

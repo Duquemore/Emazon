@@ -3,6 +3,8 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/emazon.iml" filepath="$PROJECT_DIR$/.idea/emazon.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/emazon.main.iml" filepath="$PROJECT_DIR$/.idea/modules/emazon.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/emazon.test.iml" filepath="$PROJECT_DIR$/.idea/modules/emazon.test.iml" />
     </modules>
   </component>
 </project>

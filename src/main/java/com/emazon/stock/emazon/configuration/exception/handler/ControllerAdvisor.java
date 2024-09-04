@@ -1,9 +1,9 @@
 package com.emazon.stock.emazon.configuration.exception.handler;
 
-import com.emazon.stock.emazon.adapters.driven.jpa.mysql.exception.CategoryAlreadyExistsException;
-import com.emazon.stock.emazon.configuration.Constants;
-import com.emazon.stock.emazon.domain.exception.EmptyFieldException;
-import com.emazon.stock.emazon.domain.exception.LengthExceededInFieldException;
+import com.emazon.stock.emazon.domain.exception.BrandAlreadyExistsException;
+import com.emazon.stock.emazon.domain.exception.NoDataFoundException;
+import com.emazon.stock.emazon.domain.exception.CategoryAlreadyExistsException;
+import com.emazon.stock.emazon.domain.util.Constants;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
@@ -15,17 +15,17 @@ import java.time.LocalDateTime;
 
 @RestControllerAdvice
 public class ControllerAdvisor {
-    @ExceptionHandler(EmptyFieldException.class)
-    public ResponseEntity<ExceptionResponse> handleEmptyFieldException(EmptyFieldException exception) {
-        return ResponseEntity.badRequest().body(new ExceptionResponse(
-                String.format(Constants.EMPTY_FIELD_EXCEPTION_MESSAGE, exception.getMessage()),
-                HttpStatus.BAD_REQUEST.toString(), LocalDateTime.now()));
-    }
 
-    @ExceptionHandler(LengthExceededInFieldException.class)
-    public ResponseEntity<ExceptionResponse> handleMaximimLengthExceededInFieldException(LengthExceededInFieldException exception) {
-        return ResponseEntity.badRequest().body(new ExceptionResponse(exception.getMessage(),
-                HttpStatus.BAD_REQUEST.toString(), LocalDateTime.now()));
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity<ExceptionResponse> handleMethodArgumentNotValidException(MethodArgumentNotValidException exception) {
+        StringBuilder errors = new StringBuilder();
+        for (FieldError error : exception.getBindingResult().getFieldErrors()) {
+            errors.append(error.getDefaultMessage()).append(", ");
+        }
+        return ResponseEntity.badRequest().body(new ExceptionResponse(
+                errors.toString().trim().substring(0, errors.length() - 2),
+                HttpStatus.BAD_REQUEST.toString(),
+                LocalDateTime.now()));
     }
 
     @ExceptionHandler(CategoryAlreadyExistsException.class)
@@ -34,15 +34,15 @@ public class ControllerAdvisor {
                 HttpStatus.BAD_REQUEST.toString(), LocalDateTime.now()));
     }
 
-    @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<ExceptionResponse> handleMethodArgumentNotValidException(MethodArgumentNotValidException exception) {
-        StringBuilder errors = new StringBuilder();
-        for (FieldError error : exception.getBindingResult().getFieldErrors()) {
-            errors.append(error.getField()).append(": ").append(error.getDefaultMessage()).append("; ");
-        }
-        return ResponseEntity.badRequest().body(new ExceptionResponse(
-                errors.toString().trim(),
-                HttpStatus.BAD_REQUEST.toString(),
-                LocalDateTime.now()));
+    @ExceptionHandler(BrandAlreadyExistsException.class)
+    public ResponseEntity<ExceptionResponse> handleBrandAlreadyExistsException() {
+        return ResponseEntity.badRequest().body(new ExceptionResponse(Constants.BRAND_ALREADY_EXISTS_EXCEPTION_MESSAGE,
+                HttpStatus.BAD_REQUEST.toString(), LocalDateTime.now()));
+    }
+
+    @ExceptionHandler(NoDataFoundException.class)
+    public ResponseEntity<ExceptionResponse> handleNoDataFoundException() {
+        return ResponseEntity.badRequest().body(new ExceptionResponse(Constants.NO_DATA_FOUND_EXCEPTION_MESSAGE,
+                HttpStatus.BAD_REQUEST.toString(), LocalDateTime.now()));
     }
 }

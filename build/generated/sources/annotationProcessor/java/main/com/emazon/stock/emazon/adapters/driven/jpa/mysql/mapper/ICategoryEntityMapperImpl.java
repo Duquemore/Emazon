@@ -2,31 +2,18 @@ package com.emazon.stock.emazon.adapters.driven.jpa.mysql.mapper;
 
 import com.emazon.stock.emazon.adapters.driven.jpa.mysql.entity.CategoryEntity;
 import com.emazon.stock.emazon.domain.model.Category;
+import java.util.ArrayList;
+import java.util.List;
 import javax.annotation.processing.Generated;
 import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2024-08-24T16:36:59-0500",
+    date = "2024-09-02T22:23:44-0500",
     comments = "version: 1.5.5.Final, compiler: IncrementalProcessingEnvironment from gradle-language-java-8.8.jar, environment: Java 17.0.12 (Amazon.com Inc.)"
 )
 @Component
 public class ICategoryEntityMapperImpl implements ICategoryEntityMapper {
-
-    @Override
-    public Category toDomain(CategoryEntity categoryEntity) {
-        if ( categoryEntity == null ) {
-            return null;
-        }
-
-        Long id = null;
-        String name = null;
-        String description = null;
-
-        Category category = new Category( id, name, description );
-
-        return category;
-    }
 
     @Override
     public Category toModel(CategoryEntity categoryEntity) {
@@ -37,6 +24,10 @@ public class ICategoryEntityMapperImpl implements ICategoryEntityMapper {
         Long id = null;
         String name = null;
         String description = null;
+
+        id = categoryEntity.getId();
+        name = categoryEntity.getName();
+        description = categoryEntity.getDescription();
 
         Category category = new Category( id, name, description );
 
@@ -49,16 +40,26 @@ public class ICategoryEntityMapperImpl implements ICategoryEntityMapper {
             return null;
         }
 
-        Long id = null;
-        String name = null;
-        String description = null;
+        CategoryEntity categoryEntity = new CategoryEntity();
 
-        id = category.getId();
-        name = category.getName();
-        description = category.getDescription();
-
-        CategoryEntity categoryEntity = new CategoryEntity( id, name, description );
+        categoryEntity.setId( category.getId() );
+        categoryEntity.setName( category.getName() );
+        categoryEntity.setDescription( category.getDescription() );
 
         return categoryEntity;
+    }
+
+    @Override
+    public List<Category> toModelList(List<CategoryEntity> categoryEntities) {
+        if ( categoryEntities == null ) {
+            return null;
+        }
+
+        List<Category> list = new ArrayList<Category>( categoryEntities.size() );
+        for ( CategoryEntity categoryEntity : categoryEntities ) {
+            list.add( toModel( categoryEntity ) );
+        }
+
+        return list;
     }
 }
